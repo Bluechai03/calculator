@@ -28,3 +28,18 @@ function operate(firstNum, operator, secondNum) {
       return console.log('errorrrr');
   }
 }
+function updateDisplay(e) {
+  const display = document.querySelector('.display');
+  const displayValue = display.querySelector('#displayValue');
+  if (e.target.classList.contains('btn--number')) {
+    if (displayValue.textContent === '0') displayValue.textContent = e.target.value;
+    else displayValue.textContent += e.target.value;
+  } else if (e.target.classList.contains('btn--operator')) {
+    displayValue.textContent += e.target.textContent;
+  }
+}
+const grid = document.querySelector('.grid');
+grid.addEventListener('click', updateDisplay);
+
+const result = grid.querySelector('#buttonResult');
+result.addEventListener('click', () => {});
