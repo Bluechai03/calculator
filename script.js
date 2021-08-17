@@ -41,16 +41,19 @@ function operate(firstNum, operator, secondNum) {
 
 // Store the values into firstNum variable once an operator is pressed and save the operator itself
 // When '=' is pressed, save values before it into secondNum
+const display = document.querySelector('.display');
+const displayExpression = display.querySelector('#displayExpression');
 
-function getValues(e, number) {
-  if (!number) number = e.target.value;
-  else number += e.target.value;
-  return parseInt(number, 10);
+function getValues() {
+  return parseInt(displayExpression.textContent, 10);
+}
+
+function getOperator() {
+  // const newString = displayExpression.textContent.replace(/(?=[A-Za-z])/g, '');
+  const newString = displayExpression.textContent;
 }
 
 function updateDisplay(e) {
-  const display = document.querySelector('.display');
-  const displayExpression = display.querySelector('#displayExpression');
   if (e.target.classList.contains('btn--number')) {
     if (displayExpression.textContent === '0') displayExpression.textContent = e.target.value;
     else displayExpression.textContent += e.target.value;
@@ -67,9 +70,18 @@ let secondNum;
 
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
+  if (e.target.classList.contains('btn--operator')) {
+    firstNum = getValues();
+    operator = e.target.value;
+  }
   updateDisplay(e);
 });
 
 // Get the first and second number then pass onto operate function
 const result = grid.querySelector('#buttonResult');
-result.addEventListener('click', () => operate(firstNum, operator, secondNum));
+result.addEventListener('click', (e) => {
+  // Split the expression to get operator and second value
+  getOperator();
+  // getValues();
+  // operate(firstNum, operator, secondNum);
+});
