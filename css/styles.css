@@ -38,7 +38,8 @@ main {
 }
 
 .row > * {
+  font-size: 1rem;
   padding: 2em;
-  width: 5rem;
+  width: 2rem;
 }
 /*# sourceMappingURL=styles.css.map */

@@ -27,19 +27,49 @@ function operate(firstNum, operator, secondNum) {
     default:
       return console.log('errorrrr');
   }
+  updateDisplay();
 }
+
+// Problem:
+// Figure out how to store firstNum, secondNum and operator from user input
+
+// Solutions:
+// With every number pressed before an operator is pressed, save them in firstNum
+// Once an operator is pressed, save the numbers after it as second sum
+
+// Use reduce to calculate values if its an array
+
+// Store the values into firstNum variable once an operator is pressed and save the operator itself
+// When '=' is pressed, save values before it into secondNum
+
+function getValues(e, number) {
+  if (!number) number = e.target.value;
+  else number += e.target.value;
+  return parseInt(number, 10);
+}
+
 function updateDisplay(e) {
   const display = document.querySelector('.display');
-  const displayValue = display.querySelector('#displayValue');
+  const displayExpression = display.querySelector('#displayExpression');
   if (e.target.classList.contains('btn--number')) {
-    if (displayValue.textContent === '0') displayValue.textContent = e.target.value;
-    else displayValue.textContent += e.target.value;
+    if (displayExpression.textContent === '0') displayExpression.textContent = e.target.value;
+    else displayExpression.textContent += e.target.value;
   } else if (e.target.classList.contains('btn--operator')) {
-    displayValue.textContent += e.target.textContent;
+    displayExpression.textContent += e.target.textContent;
   }
+  if (e.target.id === 'buttonClear') displayExpression.textContent = '0';
 }
-const grid = document.querySelector('.grid');
-grid.addEventListener('click', updateDisplay);
 
+let operator;
+let firstNum;
+let secondNum;
+// const numbers = [firstNum, secondNum];
+
+const grid = document.querySelector('.grid');
+grid.addEventListener('click', (e) => {
+  updateDisplay(e);
+});
+
+// Get the first and second number then pass onto operate function
 const result = grid.querySelector('#buttonResult');
-result.addEventListener('click', () => {});
+result.addEventListener('click', () => operate(firstNum, operator, secondNum));
