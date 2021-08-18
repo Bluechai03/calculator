@@ -15,28 +15,25 @@ function divide(firstNum, secondNum) {
 }
 
 function operate(firstNum, operator, secondNum) {
+  let result;
   switch (operator) {
     case 'add':
-      return add(firstNum, secondNum);
+      result = add(firstNum, secondNum);
+      break;
     case 'subtract':
-      return subtract(firstNum, secondNum);
+      result = subtract(firstNum, secondNum);
+      break;
     case 'multiply':
-      return multiply(firstNum, secondNum);
+      result = multiply(firstNum, secondNum);
+      break;
     case 'divide':
-      return divide(firstNum, secondNum);
+      result = divide(firstNum, secondNum);
+      break;
     default:
       return console.log('errorrrr');
   }
-  updateDisplay();
+  updateDisplayResult(result);
 }
-
-// Problem:
-// Figure out how to store firstNum, secondNum and operator from user input
-
-// Solutions:
-// With every number pressed before an operator is pressed, save them in firstNum
-// Once an operator is pressed, save the numbers after it as second sum
-
 // Use reduce to calculate values if its an array
 
 // Store the values into firstNum variable once an operator is pressed and save the operator itself
@@ -44,16 +41,14 @@ function operate(firstNum, operator, secondNum) {
 const display = document.querySelector('.display');
 const displayExpression = display.querySelector('#displayExpression');
 
-function getValues() {
-  return parseInt(displayExpression.textContent, 10);
+// If theres an operator inside textContent, split it and return the numbers after the operator
+// Use regex to match everything thats not a number and split it
+function getValues(index) {
+  const array = displayExpression.textContent.split(/[^0-9.]/g);
+  return parseInt(array[index], 10);
 }
 
-function getOperator() {
-  // const newString = displayExpression.textContent.replace(/(?=[A-Za-z])/g, '');
-  const newString = displayExpression.textContent;
-}
-
-function updateDisplay(e) {
+function updateDisplayExpression(e) {
   if (e.target.classList.contains('btn--number')) {
     if (displayExpression.textContent === '0') displayExpression.textContent = e.target.value;
     else displayExpression.textContent += e.target.value;
@@ -63,6 +58,8 @@ function updateDisplay(e) {
   if (e.target.id === 'buttonClear') displayExpression.textContent = '0';
 }
 
+function updateDisplayResult(result) {}
+
 let operator;
 let firstNum;
 let secondNum;
@@ -71,17 +68,16 @@ let secondNum;
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   if (e.target.classList.contains('btn--operator')) {
-    firstNum = getValues();
+    firstNum = getValues(0);
     operator = e.target.value;
   }
-  updateDisplay(e);
+  updateDisplayExpression(e);
 });
 
 // Get the first and second number then pass onto operate function
 const result = grid.querySelector('#buttonResult');
 result.addEventListener('click', (e) => {
   // Split the expression to get operator and second value
-  getOperator();
-  // getValues();
-  // operate(firstNum, operator, secondNum);
+  secondNum = getValues(1);
+  const resultValue = operate(firstNum, operator, secondNum);
 });
