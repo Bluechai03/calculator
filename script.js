@@ -32,7 +32,7 @@ function operate(firstNum, operator, secondNum) {
     default:
       return console.log('errorrrr');
   }
-  updateDisplayResult(result);
+  return result;
 }
 // Use reduce to calculate values if its an array
 
@@ -40,6 +40,7 @@ function operate(firstNum, operator, secondNum) {
 // When '=' is pressed, save values before it into secondNum
 const display = document.querySelector('.display');
 const displayExpression = display.querySelector('#displayExpression');
+const displayResult = display.querySelector('#displayResult');
 
 // If theres an operator inside textContent, split it and return the numbers after the operator
 // Use regex to match everything thats not a number and split it
@@ -55,10 +56,15 @@ function updateDisplayExpression(e) {
   } else if (e.target.classList.contains('btn--operator')) {
     displayExpression.textContent += e.target.textContent;
   }
-  if (e.target.id === 'buttonClear') displayExpression.textContent = '0';
+  if (e.target.id === 'buttonClear') {
+    displayExpression.textContent = 0;
+    displayResult.textContent = 0;
+  }
 }
 
-function updateDisplayResult(result) {}
+function updateDisplayResult(result) {
+  displayResult.textContent = result;
+}
 
 let operator;
 let firstNum;
@@ -75,9 +81,10 @@ grid.addEventListener('click', (e) => {
 });
 
 // Get the first and second number then pass onto operate function
-const result = grid.querySelector('#buttonResult');
-result.addEventListener('click', (e) => {
+const buttonResult = grid.querySelector('#buttonResult');
+buttonResult.addEventListener('click', () => {
   // Split the expression to get operator and second value
   secondNum = getValues(1);
-  const resultValue = operate(firstNum, operator, secondNum);
+  const result = operate(firstNum, operator, secondNum);
+  updateDisplayResult(result);
 });
