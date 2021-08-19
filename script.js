@@ -34,19 +34,14 @@ function operate(firstNum, operator, secondNum) {
   }
   return result;
 }
-// Use reduce to calculate values if its an array
-
-// Store the values into firstNum variable once an operator is pressed and save the operator itself
-// When '=' is pressed, save values before it into secondNum
 const display = document.querySelector('.display');
 const displayExpression = display.querySelector('#displayExpression');
 const displayResult = display.querySelector('#displayResult');
 
-// If theres an operator inside textContent, split it and return the numbers after the operator
-// Use regex to match everything thats not a number and split it
+// Use regex to match everything thats not a number and split into an array
 function getValues(index) {
-  const array = displayExpression.textContent.split(/[^0-9.]/g);
-  return parseInt(array[index], 10);
+  const expression = displayExpression.textContent.split(/[^0-9.]/g);
+  return parseInt(expression[index], 10);
 }
 
 function updateDisplayExpression(e) {
@@ -62,20 +57,22 @@ function updateDisplayExpression(e) {
   }
 }
 
-function updateDisplayResult(result) {
-  displayResult.textContent = result;
-}
+// function updateDisplayResult(result) {
+//   displayResult.textContent = result;
+// }
 
-let operator;
-let firstNum;
-let secondNum;
-// const numbers = [firstNum, secondNum];
+const currentExpression = {};
+let numberOfTerms = 0;
 
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   if (e.target.classList.contains('btn--operator')) {
-    firstNum = getValues(0);
-    operator = e.target.value;
+    if (currentExpression.currentNum) currentExpression.previousNum = currentExpression.currentNum;
+    currentExpression.currentNum = getValues(numberOfTerms);
+    if (displayResult.textContent !== '0') currentExpression.previousNum = displayResult.textContent;
+    if (currentExpression.previousNum && currentExpression.currentNum) displayResult.textContent = operate(currentExpression.previousNum, currentExpression.operator, currentExpression.currentNum);
+    currentExpression.operator = e.target.value;
+    numberOfTerms += 1;
   }
   updateDisplayExpression(e);
 });
@@ -83,8 +80,5 @@ grid.addEventListener('click', (e) => {
 // Get the first and second number then pass onto operate function
 const buttonResult = grid.querySelector('#buttonResult');
 buttonResult.addEventListener('click', () => {
-  // Split the expression to get operator and second value
-  secondNum = getValues(1);
-  const result = operate(firstNum, operator, secondNum);
-  updateDisplayResult(result);
+  // displayResult.textContent = operate(currentExpression.previousNum, currentExpression.operator, currentExpression.currentNum);
 });
