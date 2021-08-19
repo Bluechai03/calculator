@@ -78,7 +78,7 @@ let operator;
 
 function calculateCurrentExpression() {
   const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
-  if (previousTerm !== parseInt(displayResult.textContent, 10)) previousTerm = getValues(expression, expression.length - 2);
+  previousTerm = getValues(expression, expression.length - 2);
   currentTerm = getValues(expression, expression.length - 1);
   if (displayResult.textContent !== '0') previousTerm = parseInt(displayResult.textContent, 10);
   if (previousTerm && currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
