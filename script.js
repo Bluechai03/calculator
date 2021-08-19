@@ -11,6 +11,7 @@ function multiply(firstNum, secondNum) {
 }
 
 function divide(firstNum, secondNum) {
+  if (firstNum === 0 || secondNum === 0) return 'ERROR';
   return firstNum / secondNum;
 }
 
@@ -54,6 +55,10 @@ function updateDisplayExpression(e) {
   if (e.target.id === 'buttonClear') {
     displayExpression.textContent = 0;
     displayResult.textContent = 0;
+    previousTerm = 0;
+    operator = '';
+    numberOfTerms = 0;
+    currentTerm = 0;
   }
 }
 
@@ -61,18 +66,24 @@ function updateDisplayExpression(e) {
 //   displayResult.textContent = result;
 // }
 
-const currentExpression = {};
+let previousTerm;
+let currentTerm;
+let operator;
 let numberOfTerms = 0;
+
+function calculateCurrentExpression() {
+  if (currentTerm) previousTerm = currentTerm;
+  currentTerm = getValues(numberOfTerms);
+  if (displayResult.textContent !== '0') previousTerm = parseInt(displayResult.textContent, 10);
+  if (previousTerm && currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
+}
 
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   if (e.target.classList.contains('btn--operator')) {
-    if (currentExpression.currentNum) currentExpression.previousNum = currentExpression.currentNum;
-    currentExpression.currentNum = getValues(numberOfTerms);
-    if (displayResult.textContent !== '0') currentExpression.previousNum = displayResult.textContent;
-    if (currentExpression.previousNum && currentExpression.currentNum) displayResult.textContent = operate(currentExpression.previousNum, currentExpression.operator, currentExpression.currentNum);
-    currentExpression.operator = e.target.value;
+    calculateCurrentExpression();
     numberOfTerms += 1;
+    operator = e.target.value;
   }
   updateDisplayExpression(e);
 });
@@ -80,5 +91,17 @@ grid.addEventListener('click', (e) => {
 // Get the first and second number then pass onto operate function
 const buttonResult = grid.querySelector('#buttonResult');
 buttonResult.addEventListener('click', () => {
-  // displayResult.textContent = operate(currentExpression.previousNum, currentExpression.operator, currentExpression.currentNum);
+  // numberOfTerms += 1;
+  calculateCurrentExpression();
+  currentTerm = parseInt(displayResult, 10);
 });
+
+// const buttonNumbers = document.querySelectorAll('.btn--number');
+
+// function createTerm(length){
+// for(let i = 0; i < length; i++){
+// buttonNumbers[Math.floor(Math.random() * 10)].click();
+// }
+// }
+
+// createTerm(4);
