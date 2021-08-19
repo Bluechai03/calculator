@@ -40,9 +40,13 @@ const displayExpression = display.querySelector('#displayExpression');
 const displayResult = display.querySelector('#displayResult');
 
 // Use regex to match everything thats not a number and split into an array
-function getValues(index) {
-  const expression = displayExpression.textContent.split(/[^0-9.]/g);
-  return parseInt(expression[index], 10);
+function getValues(array, index) {
+  return parseInt(array[index], 10);
+}
+
+function checkOperator() {
+  const ifOperatorExists = displayExpression.textContent.match(/[^0-9.]/g);
+  return !!ifOperatorExists;
 }
 
 function updateDisplayExpression(e) {
@@ -72,20 +76,24 @@ let operator;
 let numberOfTerms = 0;
 
 function calculateCurrentExpression() {
-  if (currentTerm) previousTerm = currentTerm;
-  currentTerm = getValues(numberOfTerms);
+  const expression = displayExpression.textContent.split(/[^0-9.]/g);
+  if (previousTerm !== parseInt(displayResult.textContent, 10)) previousTerm = getValues(expression, expression.length - 2);
+  currentTerm = getValues(expression, expression.length - 1);
   if (displayResult.textContent !== '0') previousTerm = parseInt(displayResult.textContent, 10);
   if (previousTerm && currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
 }
 
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
+  updateDisplayExpression(e);
   if (e.target.classList.contains('btn--operator')) {
-    calculateCurrentExpression();
-    numberOfTerms += 1;
     operator = e.target.value;
   }
-  updateDisplayExpression(e);
+  if (e.target.classList.contains('btn--number')) {
+    if (checkOperator()) {
+      calculateCurrentExpression(e);
+    }
+  }
 });
 
 // Get the first and second number then pass onto operate function
