@@ -54,14 +54,16 @@ function updateDisplayExpression(e) {
     if (displayExpression.textContent === '0') displayExpression.textContent = e.target.value;
     else displayExpression.textContent += e.target.value;
   } else if (e.target.classList.contains('btn--operator')) {
-    displayExpression.textContent += e.target.textContent;
+    if (displayResult.textContent !== '0') {
+      displayExpression.textContent = displayResult.textContent;
+    }
+    displayExpression.textContent += `${e.target.textContent}`;
   }
   if (e.target.id === 'buttonClear') {
     displayExpression.textContent = 0;
     displayResult.textContent = 0;
     previousTerm = 0;
     operator = '';
-    numberOfTerms = 0;
     currentTerm = 0;
   }
 }
@@ -73,10 +75,9 @@ function updateDisplayExpression(e) {
 let previousTerm;
 let currentTerm;
 let operator;
-let numberOfTerms = 0;
 
 function calculateCurrentExpression() {
-  const expression = displayExpression.textContent.split(/[^0-9.]/g);
+  const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
   if (previousTerm !== parseInt(displayResult.textContent, 10)) previousTerm = getValues(expression, expression.length - 2);
   currentTerm = getValues(expression, expression.length - 1);
   if (displayResult.textContent !== '0') previousTerm = parseInt(displayResult.textContent, 10);
