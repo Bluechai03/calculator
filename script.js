@@ -1,3 +1,22 @@
+let previousTerm;
+let currentTerm;
+let operator;
+
+const display = document.querySelector('.display');
+const displayExpression = display.querySelector('#displayExpression');
+const displayResult = display.querySelector('#displayResult');
+
+// Functions
+function resetCalculator() {
+  const buttonDecimal = document.querySelector('#buttonDecimal');
+  buttonDecimal.disabled = false;
+  displayExpression.textContent = 0;
+  displayResult.textContent = 0;
+  previousTerm = 0;
+  operator = '';
+  currentTerm = 0;
+}
+
 function add(firstNum, secondNum) {
   return firstNum + secondNum;
 }
@@ -39,9 +58,6 @@ function operate(firstNum, operator, secondNum) {
   }
   return result.toFixed(2).replace(/[.,]00$/, '');
 }
-const display = document.querySelector('.display');
-const displayExpression = display.querySelector('#displayExpression');
-const displayResult = display.querySelector('#displayResult');
 
 // Use regex to match everything thats not a number and split into an array
 function getValues(array, index) {
@@ -53,9 +69,20 @@ function checkOperator() {
   return !!ifOperatorExists;
 }
 
+function calculateCurrentExpression() {
+  if (checkOperator()) {
+    const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
+    previousTerm = getValues(expression, expression.length - 2);
+    currentTerm = getValues(expression, expression.length - 1);
+    if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
+  }
+}
+
 function deleteValue() {
   if (displayExpression.textContent.length > 1) displayExpression.textContent = displayExpression.textContent.slice(0, -1);
   else displayExpression.textContent = 0;
+  calculateCurrentExpression();
+  if (displayResult.textContent === 'NaN') displayResult.textContent = '0';
 }
 
 function displayValue(value) {
@@ -75,27 +102,7 @@ function updateDisplay(e) {
   else if (e.target.classList.contains('btn--operator')) displayOperator(e.target.textContent);
 }
 
-function resetCalculator() {
-  displayExpression.textContent = 0;
-  displayResult.textContent = 0;
-  buttonDecimal.disabled = false;
-  previousTerm = 0;
-  operator = '';
-  currentTerm = 0;
-}
-
-let previousTerm;
-let currentTerm;
-let operator;
-
-function calculateCurrentExpression() {
-  if (checkOperator()) {
-    const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
-    previousTerm = getValues(expression, expression.length - 2);
-    currentTerm = getValues(expression, expression.length - 1);
-    if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
-  }
-}
+// DOM elements
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   updateDisplay(e);
@@ -104,6 +111,7 @@ grid.addEventListener('click', (e) => {
   }
   if (e.target.classList.contains('btn--operator')) {
     operator = e.target.value;
+    const buttonDecimal = document.querySelector('#buttonDecimal');
     buttonDecimal.disabled = false;
   }
   if (e.target.classList.contains('btn--number')) {
@@ -162,6 +170,7 @@ document.addEventListener('keydown', (e) => {
     displayOperator(e.key);
   } else if (e.key === 'Backspace') deleteValue();
 });
+
 // const buttonNumbers = document.querySelectorAll('.btn--number');
 
 // function createTerm(length){
