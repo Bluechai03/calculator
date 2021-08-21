@@ -31,6 +31,9 @@ main {
 .grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  & > * {
+    padding: 1em 0;
+  }
 }
 
 .row {
@@ -41,6 +44,10 @@ main {
     padding: 2em;
     width: 2rem;
   }
+}
+
+.calculator {
+  max-width: 750px;
 }
 
 .display__expression {
