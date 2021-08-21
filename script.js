@@ -68,10 +68,6 @@ function updateDisplayExpression(e) {
   }
 }
 
-// function updateDisplayResult(result) {
-//   displayResult.textContent = result;
-// }
-
 let previousTerm;
 let currentTerm;
 let operator;
@@ -100,8 +96,7 @@ grid.addEventListener('click', (e) => {
 // Get the first and second number then pass onto operate function
 const buttonResult = grid.querySelector('#buttonResult');
 buttonResult.addEventListener('click', () => {
-  // numberOfTerms += 1;
-  calculateCurrentExpression();
+  displayExpression.textContent = displayResult.textContent;
   currentTerm = parseInt(displayResult, 10);
 });
 
