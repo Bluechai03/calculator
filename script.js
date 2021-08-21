@@ -58,8 +58,8 @@ function checkOperator() {
   return !!ifOperatorExists;
 }
 
-function updateDisplayExpression(e) {
-  if (e.target.classList.contains('btn--number')) {
+function updateDisplay(e) {
+  if (e.target.classList.contains('btn--number') || e.target.id === 'buttonDecimal') {
     if (displayExpression.textContent === '0') displayExpression.textContent = e.target.value;
     else displayExpression.textContent += e.target.value;
   } else if (e.target.classList.contains('btn--operator')) {
@@ -76,6 +76,7 @@ function updateDisplayExpression(e) {
 function resetCalculator() {
   displayExpression.textContent = 0;
   displayResult.textContent = 0;
+  buttonDecimal.disabled = false;
   previousTerm = 0;
   operator = '';
   currentTerm = 0;
@@ -89,13 +90,13 @@ function calculateCurrentExpression() {
   const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
   previousTerm = getValues(expression, expression.length - 2);
   currentTerm = getValues(expression, expression.length - 1);
-  if (displayResult.textContent !== '0') previousTerm = parseFloat(displayResult.textContent, 10);
+  // if (displayResult.textContent !== '0') previousTerm = parseFloat(displayResult.textContent, 10);
   if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
 }
 
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
-  updateDisplayExpression(e);
+  updateDisplay(e);
   if (e.target.classList.contains('btn--operator')) {
     operator = e.target.value;
   }
@@ -113,6 +114,16 @@ buttonResult.addEventListener('click', () => {
   currentTerm = parseInt(displayResult, 10);
 });
 
+const buttonDecimal = grid.querySelector('#buttonDecimal');
+buttonDecimal.addEventListener('click', (e) => {
+  e.target.disabled = true;
+});
+
+const buttonBackspace = grid.querySelector('#buttonBackspace');
+buttonBackspace.addEventListener('click', () => {
+  if (displayExpression.textContent.length > 1) displayExpression.textContent = displayExpression.textContent.slice(0, -1);
+  else displayExpression.textContent = 0;
+});
 // const buttonNumbers = document.querySelectorAll('.btn--number');
 
 // function createTerm(length){
