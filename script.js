@@ -12,7 +12,9 @@ function multiply(firstNum, secondNum) {
 
 function divide(firstNum, secondNum) {
   if (firstNum === 0 || secondNum === 0) return 'ERROR';
-  return firstNum / secondNum;
+  return parseFloat(firstNum / secondNum)
+    .toFixed(2)
+    .replace(/[.,]00$/, '');
 }
 
 function operate(firstNum, operator, secondNum) {
@@ -33,6 +35,7 @@ function operate(firstNum, operator, secondNum) {
     default:
       return console.log('errorrrr');
   }
+  // return parseFloat(result).toFixed(2);
   return result;
 }
 const display = document.querySelector('.display');
@@ -41,7 +44,7 @@ const displayResult = display.querySelector('#displayResult');
 
 // Use regex to match everything thats not a number and split into an array
 function getValues(array, index) {
-  return parseInt(array[index], 10);
+  return parseFloat(array[index], 10);
 }
 
 function checkOperator() {
@@ -76,7 +79,7 @@ function calculateCurrentExpression() {
   const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
   previousTerm = getValues(expression, expression.length - 2);
   currentTerm = getValues(expression, expression.length - 1);
-  if (displayResult.textContent !== '0') previousTerm = parseInt(displayResult.textContent, 10);
+  if (displayResult.textContent !== '0') previousTerm = parseFloat(displayResult.textContent, 10);
   if (previousTerm && currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
 }
 
