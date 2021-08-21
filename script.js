@@ -11,10 +11,12 @@ function multiply(firstNum, secondNum) {
 }
 
 function divide(firstNum, secondNum) {
-  if (firstNum === 0 || secondNum === 0) return 'ERROR';
-  return parseFloat(firstNum / secondNum)
-    .toFixed(2)
-    .replace(/[.,]00$/, '');
+  if (parseInt(firstNum, 10) === 0 || parseInt(secondNum, 10) === 0) {
+    alert("Don't divide by 0!");
+    resetCalculator();
+    return 0;
+  }
+  return firstNum / secondNum;
 }
 
 function operate(firstNum, operator, secondNum) {
@@ -33,10 +35,14 @@ function operate(firstNum, operator, secondNum) {
       result = divide(firstNum, secondNum);
       break;
     default:
+      if (parseInt(firstNum, 10) === 0 || parseInt(secondNum, 10) === 0) {
+        alert('NOPE');
+        resetCalculator();
+        break;
+      }
       return console.log('errorrrr');
   }
-  // return parseFloat(result).toFixed(2);
-  return result;
+  return result.toFixed(2).replace(/[.,]00$/, '');
 }
 const display = document.querySelector('.display');
 const displayExpression = display.querySelector('#displayExpression');
@@ -63,12 +69,16 @@ function updateDisplayExpression(e) {
     displayExpression.textContent += `${e.target.textContent}`;
   }
   if (e.target.id === 'buttonClear') {
-    displayExpression.textContent = 0;
-    displayResult.textContent = 0;
-    previousTerm = 0;
-    operator = '';
-    currentTerm = 0;
+    resetCalculator();
   }
+}
+
+function resetCalculator() {
+  displayExpression.textContent = 0;
+  displayResult.textContent = 0;
+  previousTerm = 0;
+  operator = '';
+  currentTerm = 0;
 }
 
 let previousTerm;
@@ -80,7 +90,7 @@ function calculateCurrentExpression() {
   previousTerm = getValues(expression, expression.length - 2);
   currentTerm = getValues(expression, expression.length - 1);
   if (displayResult.textContent !== '0') previousTerm = parseFloat(displayResult.textContent, 10);
-  if (previousTerm && currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
+  if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
 }
 
 const grid = document.querySelector('.grid');
