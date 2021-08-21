@@ -35,12 +35,7 @@ function operate(firstNum, operator, secondNum) {
       result = divide(firstNum, secondNum);
       break;
     default:
-      if (parseInt(firstNum, 10) === 0 || parseInt(secondNum, 10) === 0) {
-        alert('NOPE');
-        resetCalculator();
-        break;
-      }
-      return console.log('errorrrr');
+      break;
   }
   return result.toFixed(2).replace(/[.,]00$/, '');
 }
@@ -58,19 +53,26 @@ function checkOperator() {
   return !!ifOperatorExists;
 }
 
+function deleteValue() {
+  if (displayExpression.textContent.length > 1) displayExpression.textContent = displayExpression.textContent.slice(0, -1);
+  else displayExpression.textContent = 0;
+}
+
+function displayValue(value) {
+  if (displayExpression.textContent === '0') displayExpression.textContent = value;
+  else displayExpression.textContent += value;
+}
+
+function displayOperator(operator) {
+  if (displayResult.textContent !== '0') {
+    displayExpression.textContent = displayResult.textContent;
+  }
+  displayExpression.textContent += `${operator}`;
+}
+
 function updateDisplay(e) {
-  if (e.target.classList.contains('btn--number') || e.target.id === 'buttonDecimal') {
-    if (displayExpression.textContent === '0') displayExpression.textContent = e.target.value;
-    else displayExpression.textContent += e.target.value;
-  } else if (e.target.classList.contains('btn--operator')) {
-    if (displayResult.textContent !== '0') {
-      displayExpression.textContent = displayResult.textContent;
-    }
-    displayExpression.textContent += `${e.target.textContent}`;
-  }
-  if (e.target.id === 'buttonClear') {
-    resetCalculator();
-  }
+  if (e.target.classList.contains('btn--number') || e.target.id === 'buttonDecimal') displayValue(e.target.value);
+  else if (e.target.classList.contains('btn--operator')) displayOperator(e.target.textContent);
 }
 
 function resetCalculator() {
@@ -87,22 +89,25 @@ let currentTerm;
 let operator;
 
 function calculateCurrentExpression() {
-  const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
-  previousTerm = getValues(expression, expression.length - 2);
-  currentTerm = getValues(expression, expression.length - 1);
-  if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
+  if (checkOperator()) {
+    const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
+    previousTerm = getValues(expression, expression.length - 2);
+    currentTerm = getValues(expression, expression.length - 1);
+    if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
+  }
 }
-
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   updateDisplay(e);
+  if (e.target.id === 'buttonClear') {
+    resetCalculator();
+  }
   if (e.target.classList.contains('btn--operator')) {
     operator = e.target.value;
+    buttonDecimal.disabled = false;
   }
   if (e.target.classList.contains('btn--number')) {
-    if (checkOperator()) {
-      calculateCurrentExpression(e);
-    }
+    calculateCurrentExpression();
   }
 });
 
@@ -120,8 +125,42 @@ buttonDecimal.addEventListener('click', (e) => {
 
 const buttonBackspace = grid.querySelector('#buttonBackspace');
 buttonBackspace.addEventListener('click', () => {
-  if (displayExpression.textContent.length > 1) displayExpression.textContent = displayExpression.textContent.slice(0, -1);
-  else displayExpression.textContent = 0;
+  deleteValue();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key.match(/[0-9.]/g)) {
+    displayValue(e.key);
+    calculateCurrentExpression();
+  }
+
+  if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
+    switch (e.key) {
+      case '+': {
+        operator = 'add';
+        break;
+      }
+
+      case '-': {
+        operator = 'subtract';
+        break;
+      }
+
+      case '*': {
+        operator = 'multiply';
+        break;
+      }
+
+      case '/': {
+        operator = 'divide';
+        break;
+      }
+      default: {
+        break;
+      }
+    }
+    displayOperator(e.key);
+  } else if (e.key === 'Backspace') deleteValue();
 });
 // const buttonNumbers = document.querySelectorAll('.btn--number');
 
