@@ -28,11 +28,11 @@
 
 <div align="center">
   <h3>
-    <a target="_blank" href="">
+    <a target="_blank" href="https://bluechai03.github.io/calculator/">
       Demo
     </a>
     <span> | </span>
-    <a target="_blank" href="">
+    <a target="_blank" href="https://github.com/Bluechai03/calculator">
       Solution
     </a>
   </h3>
