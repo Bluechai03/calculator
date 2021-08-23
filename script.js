@@ -1,6 +1,6 @@
 let previousTerm;
 let currentTerm;
-let operator;
+let operatorValue;
 
 const display = document.querySelector('.display');
 const displayExpression = display.querySelector('#displayExpression');
@@ -13,7 +13,7 @@ function resetCalculator() {
   displayExpression.textContent = 0;
   displayResult.textContent = 0;
   previousTerm = 0;
-  operator = '';
+  operatorValue = '';
   currentTerm = 0;
 }
 
@@ -69,13 +69,21 @@ function checkOperator() {
   return !!ifOperatorExists;
 }
 
+function toggleResultButton() {
+  const buttonResult = document.querySelector('#buttonResult');
+  buttonResult.disabled = true;
+  if (currentTerm && previousTerm) buttonResult.disabled = false;
+}
+
 function calculateCurrentExpression() {
+  const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
+  currentTerm = getValues(expression, expression.length - 1);
   if (checkOperator()) {
-    const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
     previousTerm = getValues(expression, expression.length - 2);
     currentTerm = getValues(expression, expression.length - 1);
-    if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operator, currentTerm);
+    if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operatorValue, currentTerm);
   }
+  toggleResultButton();
 }
 
 function deleteValue() {
@@ -92,7 +100,8 @@ function displayValue(value) {
 
 function displayOperator(operator) {
   if (displayResult.textContent !== '0') {
-    displayExpression.textContent = displayResult.textContent;
+    if (currentTerm) displayExpression.textContent = currentTerm;
+    else displayExpression.textContent = displayResult.textContent;
   }
   displayExpression.textContent += `${operator}`;
 }
@@ -110,7 +119,7 @@ grid.addEventListener('click', (e) => {
     resetCalculator();
   }
   if (e.target.classList.contains('btn--operator')) {
-    operator = e.target.value;
+    operatorValue = e.target.value;
     const buttonDecimal = document.querySelector('#buttonDecimal');
     buttonDecimal.disabled = false;
   }
@@ -145,22 +154,22 @@ document.addEventListener('keydown', (e) => {
   if (e.key === '+' || e.key === '-' || e.key === '*' || e.key === '/') {
     switch (e.key) {
       case '+': {
-        operator = 'add';
+        operatorValue = 'add';
         break;
       }
 
       case '-': {
-        operator = 'subtract';
+        operatorValue = 'subtract';
         break;
       }
 
       case '*': {
-        operator = 'multiply';
+        operatorValue = 'multiply';
         break;
       }
 
       case '/': {
-        operator = 'divide';
+        operatorValue = 'divide';
         break;
       }
       default: {
@@ -168,7 +177,9 @@ document.addEventListener('keydown', (e) => {
       }
     }
     displayOperator(e.key);
-  } else if (e.key === 'Backspace') deleteValue();
+  } else if (e.key === 'Backspace') {
+    deleteValue();
+  }
 });
 
 // const buttonNumbers = document.querySelectorAll('.btn--number');
