@@ -6,6 +6,10 @@
 
 :root {
   --clr-bg: hsl(212, 100%, 15%);
+  --clr-all-clear: hsl(346, 84%, 61%);
+  --clr-result: hsl(164, 95%, 43%);
+  --clr-operators: hsl(191, 50%, 68%);
+  --clr-backspace: hsl(42, 100%, 70%);
 }
 
 h1,
@@ -24,6 +28,10 @@ body {
   min-height: 100vh;
   display: grid;
   place-items: center;
+  background-image: url(../images/blob-scene-haikei.svg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  z-index: -2;
 }
 
 main {
@@ -32,12 +40,45 @@ main {
 }
 
 .btn {
-  font-size: 2em;
+  display: inline-block;
+  background: none;
+  border: transparent;
+  font-size: 2rem;
+  color: white;
+  transition: transform 100ms ease-in-out;
+}
+
+.btn--operator {
+  color: var(--clr-operators);
+}
+
+.btn:hover, .btn:focus {
+  opacity: 0.7;
+}
+
+#buttonClear {
+  color: var(--clr-all-clear);
+  font-size: 1.35rem;
+}
+
+#buttonBackspace {
+  color: var(--clr-backspace);
+  font-size: 1.35rem;
 }
 
 #buttonResult {
   grid-column: 4/5;
   grid-row: 4 / span 6;
+  border: 2px solid var(--clr-result);
+  color: var(--clr-result);
+  border-radius: 0.25em;
+  transition: background-color 100ms ease-in-out;
+}
+
+#buttonResult:hover, #buttonResult:focus {
+  opacity: 1;
+  background: var(--clr-result);
+  color: black;
 }
 
 .display {
@@ -45,6 +86,8 @@ main {
   flex-direction: column;
   align-items: flex-end;
   color: white;
+  padding: 1em;
+  border-radius: 0.25em;
 }
 
 .grid {
@@ -53,7 +96,8 @@ main {
 }
 
 .grid > * {
-  padding: 0.125rem;
+  padding: 0.125em;
+  margin: 0.125em;
 }
 
 .row {
@@ -68,10 +112,18 @@ main {
 }
 
 .calculator {
-  max-width: 350px;
-  border: 2px solid red;
+  width: 100%;
+  max-width: 250px;
   border-radius: 1em;
   padding: 1em 0.5em;
+  overflow-x: hidden;
+  z-index: 1;
+  background: rgba(255, 255, 255, 0.2);
+  position: relative;
+  backdrop-filter: blur(20px);
+  border: solid 2px transparent;
+  background-clip: padding-box;
+  box-shadow: 10px 10px 10px 10px rgba(73, 73, 73, 0.03);
 }
 
 .display__expression {
@@ -80,12 +132,5 @@ main {
 
 .display__result {
   transition: font-size 200ms ease-in-out;
-}
-
-Quantum Gradient {
-  background-color: #00244e;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100%25' height='100%25' viewBox='0 0 1200 800'%3E%3Cdefs%3E%3ClinearGradient id='a' gradientUnits='userSpaceOnUse' x1='600' y1='25' x2='600' y2='777'%3E%3Cstop offset='0' stop-color='%2300244E'/%3E%3Cstop offset='1' stop-color='%23A790A5'/%3E%3C/linearGradient%3E%3ClinearGradient id='b' gradientUnits='userSpaceOnUse' x1='650' y1='25' x2='650' y2='777'%3E%3Cstop offset='0' stop-color='%231c2c56'/%3E%3Cstop offset='1' stop-color='%23b595a6'/%3E%3C/linearGradient%3E%3ClinearGradient id='c' gradientUnits='userSpaceOnUse' x1='700' y1='25' x2='700' y2='777'%3E%3Cstop offset='0' stop-color='%232e345d'/%3E%3Cstop offset='1' stop-color='%23c19aa5'/%3E%3C/linearGradient%3E%3ClinearGradient id='d' gradientUnits='userSpaceOnUse' x1='750' y1='25' x2='750' y2='777'%3E%3Cstop offset='0' stop-color='%233d3d65'/%3E%3Cstop offset='1' stop-color='%23cca0a3'/%3E%3C/linearGradient%3E%3ClinearGradient id='e' gradientUnits='userSpaceOnUse' x1='800' y1='25' x2='800' y2='777'%3E%3Cstop offset='0' stop-color='%234c466d'/%3E%3Cstop offset='1' stop-color='%23d4a7a1'/%3E%3C/linearGradient%3E%3ClinearGradient id='f' gradientUnits='userSpaceOnUse' x1='850' y1='25' x2='850' y2='777'%3E%3Cstop offset='0' stop-color='%235a5074'/%3E%3Cstop offset='1' stop-color='%23d9af9f'/%3E%3C/linearGradient%3E%3ClinearGradient id='g' gradientUnits='userSpaceOnUse' x1='900' y1='25' x2='900' y2='777'%3E%3Cstop offset='0' stop-color='%23685a7c'/%3E%3Cstop offset='1' stop-color='%23dcb89e'/%3E%3C/linearGradient%3E%3ClinearGradient id='h' gradientUnits='userSpaceOnUse' x1='950' y1='25' x2='950' y2='777'%3E%3Cstop offset='0' stop-color='%23756484'/%3E%3Cstop offset='1' stop-color='%23dcc19f'/%3E%3C/linearGradient%3E%3ClinearGradient id='i' gradientUnits='userSpaceOnUse' x1='1000' y1='25' x2='1000' y2='777'%3E%3Cstop offset='0' stop-color='%23826e8c'/%3E%3Cstop offset='1' stop-color='%23d9cca3'/%3E%3C/linearGradient%3E%3ClinearGradient id='j' gradientUnits='userSpaceOnUse' x1='1050' y1='25' x2='1050' y2='777'%3E%3Cstop offset='0' stop-color='%238f7994'/%3E%3Cstop offset='1' stop-color='%23d4d6aa'/%3E%3C/linearGradient%3E%3ClinearGradient id='k' gradientUnits='userSpaceOnUse' x1='1100' y1='25' x2='1100' y2='777'%3E%3Cstop offset='0' stop-color='%239b849c'/%3E%3Cstop offset='1' stop-color='%23cde1b5'/%3E%3C/linearGradient%3E%3ClinearGradient id='l' gradientUnits='userSpaceOnUse' x1='1150' y1='25' x2='1150' y2='777'%3E%3Cstop offset='0' stop-color='%23A790A5'/%3E%3Cstop offset='1' stop-color='%23C5EBC3'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cg %3E%3Crect fill='url(%23a)' width='1200' height='800'/%3E%3Crect fill='url(%23b)' x='100' width='1100' height='800'/%3E%3Crect fill='url(%23c)' x='200' width='1000' height='800'/%3E%3Crect fill='url(%23d)' x='300' width='900' height='800'/%3E%3Crect fill='url(%23e)' x='400' width='800' height='800'/%3E%3Crect fill='url(%23f)' x='500' width='700' height='800'/%3E%3Crect fill='url(%23g)' x='600' width='600' height='800'/%3E%3Crect fill='url(%23h)' x='700' width='500' height='800'/%3E%3Crect fill='url(%23i)' x='800' width='400' height='800'/%3E%3Crect fill='url(%23j)' x='900' width='300' height='800'/%3E%3Crect fill='url(%23k)' x='1000' width='200' height='800'/%3E%3Crect fill='url(%23l)' x='1100' width='100' height='800'/%3E%3C/g%3E%3C/svg%3E");
-  background-attachment: fixed;
-  background-size: cover;
 }
 /*# sourceMappingURL=styles.css.map */
