@@ -100,8 +100,8 @@ function displayValue(value) {
 
 function displayOperator(operator) {
   if (displayResult.textContent !== '0') {
-    if (currentTerm) displayExpression.textContent = currentTerm;
-    else displayExpression.textContent = displayResult.textContent;
+    if (checkOperator()) displayExpression.textContent = displayResult.textContent;
+    else displayExpression.textContent = currentTerm;
   }
   displayExpression.textContent += `${operator}`;
 }
@@ -132,7 +132,7 @@ grid.addEventListener('click', (e) => {
 const buttonResult = grid.querySelector('#buttonResult');
 buttonResult.addEventListener('click', () => {
   displayExpression.textContent = displayResult.textContent;
-  currentTerm = parseInt(displayResult, 10);
+  currentTerm = parseInt(displayResult.textContent, 10);
 });
 
 const buttonDecimal = grid.querySelector('#buttonDecimal');
