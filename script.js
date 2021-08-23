@@ -146,7 +146,7 @@ buttonBackspace.addEventListener('click', () => {
 });
 
 document.addEventListener('keydown', (e) => {
-  if (e.key.match(/[0-9.]/g)) {
+  if (e.key.match(/^\d+$/)) {
     displayValue(e.key);
     calculateCurrentExpression();
   }
