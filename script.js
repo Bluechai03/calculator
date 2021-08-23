@@ -177,8 +177,10 @@ document.addEventListener('keydown', (e) => {
       }
     }
     displayOperator(e.key);
-  } else if (e.key === 'Backspace') {
-    deleteValue();
+  } else if (e.key === 'Backspace') deleteValue();
+  else if (e.key === 'Enter') {
+    displayExpression.textContent = displayResult.textContent;
+    currentTerm = parseInt(displayResult.textContent, 10);
   }
 });
 
