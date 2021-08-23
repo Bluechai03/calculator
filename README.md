@@ -57,9 +57,18 @@
 
 ## About The Project
 
-![Calculator Screenshot](https://i.imgur.com/8F1XX54.png)
+![Calculator Screenshot](https://i.imgur.com/A2XdScH.png)
+
+You can string multiple operations together. Also, keyboard inputs are supported! All logic was created using Vanilla JavaScript and SCSS as the preprocessor for CSS.
+
+For this project I focused on the logic and made sure everything functioned well without any hindering bugs. Compared to my other projects, I didn't spend much of my time making it look perfect. There were tons of bugs I had to fix and I tried my best to solve it myself and not search for an answer right away so I did have to spend most of my time using chrome's debugger tool to debug and it was incredibly helpful.
 
 ### Features
+
+- Ability to calculate multiple strings of operations
+- Add, subtract, multiply and divide values
+- Remove a value or clear the calculator
+- Keyboard support
 
 ### Built With
 
