@@ -24,10 +24,10 @@ p {
 }
 
 a {
-  color: var(--clr-bg);
+  color: var(--clr-all-clear);
   text-decoration: none;
   &:hover {
-    color: var(--clr-display);
+    color: var(--clr-backspace);
   }
 }
 
@@ -160,4 +160,8 @@ main {
 
 .display__result {
   transition: font-size 200ms ease-in-out;
+}
+
+footer {
+  color: var(--clr-bg);
 }
