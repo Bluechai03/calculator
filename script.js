@@ -15,6 +15,7 @@ const displayResult = display.querySelector('#displayResult');
 
 // Functions
 function resetCalculator() {
+  errorMessage.classList.add('calculator__top--hidden');
   const buttonDecimal = document.querySelector('#buttonDecimal');
   toggleButton(buttonDecimal, false);
   displayExpression.textContent = 0;
@@ -81,6 +82,7 @@ function toggleResultButton() {
 }
 
 function calculateCurrentExpression() {
+  errorMessage.classList.add('calculator__top--hidden');
   const expression = displayExpression.textContent.replace('', '').split(/[^0-9.]/g);
   currentTerm = getValues(expression, expression.length - 1);
   if (checkOperator()) {
@@ -138,8 +140,8 @@ grid.addEventListener('click', (e) => {
     resetCalculator();
   }
   if (e.target.classList.contains('btn--operator')) {
-    arrButtonOperators.map((button) => toggleButton(button, true));
     operatorValue = e.target.value;
+    arrButtonOperators.map((button) => toggleButton(button, true));
     const buttonDecimal = document.querySelector('#buttonDecimal');
     toggleButton(buttonDecimal, false);
   }
@@ -197,19 +199,8 @@ document.addEventListener('keydown', (e) => {
       }
     }
     displayOperator(e.key);
-  } else if (e.key === 'Backspace') deleteValue();
-  else if (e.key === 'Enter') {
+  } else if (e.key === 'Enter') {
     displayExpression.textContent = displayResult.textContent;
     currentTerm = parseFloat(displayResult.textContent, 10);
-  }
+  } else if (e.key === 'Backspace') deleteValue();
 });
-
-// const buttonNumbers = document.querySelectorAll('.btn--number');
-
-// function createTerm(length){
-// for(let i = 0; i < length; i++){
-// buttonNumbers[Math.floor(Math.random() * 10)].click();
-// }
-// }
-
-// createTerm(4);
