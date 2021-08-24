@@ -76,6 +76,9 @@ main {
     opacity: 1;
     background: var(--clr-accent, #2d2d34);
     color: var(--clr-text, --clr-display);
+  }
+
+  &:focus {
     box-shadow: none;
   }
 
