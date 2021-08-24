@@ -147,6 +147,10 @@ main {
   border-radius: 0.45em;
   margin-bottom: 1em;
   overflow-x: hidden;
+
+  &__result {
+    color: #e2e2e2a1;
+  }
 }
 
 .grid {
@@ -166,14 +170,6 @@ main {
     padding: 2em;
     width: 2rem;
   }
-}
-
-.display__expression {
-  transition: opacity 150ms ease-in-out;
-}
-
-.display__result {
-  transition: font-size 200ms ease-in-out;
 }
 
 footer {
