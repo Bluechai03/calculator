@@ -86,6 +86,16 @@ function calculateCurrentExpression() {
   toggleResultButton();
 }
 
+function toggleButton(button, isActive) {
+  if (isActive) {
+    button.disabled = true;
+    button.classList.add('btn--disabled');
+  } else {
+    button.disabled = false;
+    button.classList.remove('btn--disabled');
+  }
+}
+
 function deleteValue() {
   if (displayExpression.textContent.length > 1) displayExpression.textContent = displayExpression.textContent.slice(0, -1);
   else displayExpression.textContent = 0;
@@ -115,10 +125,14 @@ function updateDisplay(e) {
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   updateDisplay(e);
+  const buttonOperators = document.querySelectorAll('.btn--operator');
+  const arrButtonOperators = [...buttonOperators];
+  arrButtonOperators.map((button) => toggleButton(button, false));
   if (e.target.id === 'buttonClear') {
     resetCalculator();
   }
   if (e.target.classList.contains('btn--operator')) {
+    arrButtonOperators.map((button) => toggleButton(button, true));
     operatorValue = e.target.value;
     const buttonDecimal = document.querySelector('#buttonDecimal');
     buttonDecimal.disabled = false;

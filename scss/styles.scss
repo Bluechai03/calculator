@@ -82,6 +82,17 @@ main {
     box-shadow: none;
   }
 
+  &--disabled {
+    opacity: 0.4;
+    box-shadow: none;
+    &:hover,
+    &:focus {
+      opacity: 0.4;
+      background: none;
+      color: var(--clr-accent, --clr-display);
+    }
+  }
+
   &--number,
   &--value {
     --clr-text: var(--clr-bg);

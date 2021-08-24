@@ -83,6 +83,17 @@ main {
   box-shadow: none;
 }
 
+.btn--disabled {
+  opacity: 0.4;
+  box-shadow: none;
+}
+
+.btn--disabled:hover, .btn--disabled:focus {
+  opacity: 0.4;
+  background: none;
+  color: var(--clr-accent, --clr-display);
+}
+
 .btn--number, .btn--value {
   --clr-text: var(--clr-bg);
   border: none;
