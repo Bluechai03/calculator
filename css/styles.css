@@ -64,8 +64,7 @@ main {
   border: transparent;
   font-size: 1.75rem;
   color: var(--clr-numbers);
-  transition: transform 100ms ease-in-out;
-  transition: background-color 100ms ease-in-out;
+  transition: transform 100ms ease-in-out, background-color 100ms ease-in-out, box-shadow 150ms ease-in-out;
 }
 
 .btn--border {
@@ -78,6 +77,7 @@ main {
   opacity: 1;
   background: var(--clr-accent, #2d2d34);
   color: var(--clr-text, --clr-display);
+  box-shadow: none;
 }
 
 .btn--number, .btn--value {
