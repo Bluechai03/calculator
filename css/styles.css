@@ -123,7 +123,7 @@ main {
   width: 100%;
   max-width: 320px;
   border-radius: 0.5em;
-  padding: 1.5em 0.75em;
+  padding: 1em 0.75em 1.75em;
   overflow-x: hidden;
   z-index: 1;
   background: var(--clr-bg);
@@ -132,6 +132,22 @@ main {
   border: solid 2px transparent;
   background-clip: padding-box;
   box-shadow: 2px 2px 2px 1px rgba(73, 73, 73, 0.3);
+}
+
+.calculator__top {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5em;
+  align-items: flex-end;
+  color: #433d47;
+}
+
+.calculator__top--hidden {
+  display: none;
+}
+
+.calculator p {
+  color: #b8484c;
 }
 
 .display {

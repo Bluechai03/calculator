@@ -2,6 +2,13 @@ let previousTerm;
 let currentTerm;
 let operatorValue;
 
+const calculator = document.querySelector('.calculator');
+const errorMessage = document.createElement('p');
+errorMessage.textContent = "Don't divide by 0!";
+errorMessage.classList.add('calculator__top--hidden');
+const calculatorTop = calculator.querySelector('.calculator__top');
+calculatorTop.appendChild(errorMessage);
+
 const display = document.querySelector('.display');
 const displayExpression = display.querySelector('#displayExpression');
 const displayResult = display.querySelector('#displayResult');
@@ -30,11 +37,9 @@ function multiply(firstNum, secondNum) {
 }
 
 function divide(firstNum, secondNum) {
-  if (parseFloat(firstNum, 10) === 0 || parseFloat(secondNum, 10) === 0) {
-    alert("Don't divide by 0!");
-    resetCalculator();
-    return 0;
-  }
+  if (parseFloat(firstNum) === 0 || parseFloat(secondNum) === 0) errorMessage.classList.remove('calculator__top--hidden');
+  else errorMessage.classList.add('calculator__top--hidden');
+
   return firstNum / secondNum;
 }
 
