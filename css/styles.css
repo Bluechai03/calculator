@@ -83,6 +83,16 @@ main {
   box-shadow: none;
 }
 
+.btn--value {
+  --clr-text: var(--clr-bg);
+  border: none;
+  box-shadow: 2px 2px 2px 1px rgba(45, 45, 52, 0.5);
+}
+
+.btn--operator {
+  --clr-accent: var(--clr-operators);
+}
+
 .btn--disabled {
   opacity: 0.4;
   box-shadow: none;
@@ -91,17 +101,8 @@ main {
 .btn--disabled:hover, .btn--disabled:focus {
   opacity: 0.4;
   background: none;
+  box-shadow: none;
   color: var(--clr-accent, --clr-display);
-}
-
-.btn--number, .btn--value {
-  --clr-text: var(--clr-bg);
-  border: none;
-  box-shadow: 2px 2px 2px 1px rgba(45, 45, 52, 0.5);
-}
-
-.btn--operator {
-  --clr-accent: var(--clr-operators);
 }
 
 #buttonClear {
@@ -120,9 +121,9 @@ main {
 
 .calculator {
   width: 100%;
-  max-width: 250px;
+  max-width: 320px;
   border-radius: 0.5em;
-  padding: 1em 0.75em;
+  padding: 1.5em 0.75em;
   overflow-x: hidden;
   z-index: 1;
   background: var(--clr-bg);
@@ -153,7 +154,7 @@ main {
 }
 
 .grid > * {
-  padding: 0.125em;
+  padding: 0.25em;
 }
 
 .row {

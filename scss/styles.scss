@@ -82,6 +82,16 @@ main {
     box-shadow: none;
   }
 
+  &--value {
+    --clr-text: var(--clr-bg);
+    border: none;
+    box-shadow: 2px 2px 2px 1px hsla(240, 7%, 19%, 0.5);
+  }
+
+  &--operator {
+    --clr-accent: var(--clr-operators);
+  }
+
   &--disabled {
     opacity: 0.4;
     box-shadow: none;
@@ -89,20 +99,9 @@ main {
     &:focus {
       opacity: 0.4;
       background: none;
+      box-shadow: none;
       color: var(--clr-accent, --clr-display);
     }
-  }
-
-  &--number,
-  &--value {
-    --clr-text: var(--clr-bg);
-    border: none;
-
-    box-shadow: 2px 2px 2px 1px hsla(240, 7%, 19%, 0.5);
-  }
-
-  &--operator {
-    --clr-accent: var(--clr-operators);
   }
 }
 
@@ -122,9 +121,9 @@ main {
 
 .calculator {
   width: 100%;
-  max-width: 250px;
+  max-width: 320px;
   border-radius: 0.5em;
-  padding: 1em 0.75em;
+  padding: 1.5em 0.75em;
   overflow-x: hidden;
   z-index: 1;
   background: var(--clr-bg);
@@ -155,7 +154,7 @@ main {
   grid-template-columns: repeat(4, 1fr);
   gap: 0.5em;
   & > * {
-    padding: 0.125em;
+    padding: 0.25em;
   }
 }
 

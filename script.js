@@ -9,7 +9,7 @@ const displayResult = display.querySelector('#displayResult');
 // Functions
 function resetCalculator() {
   const buttonDecimal = document.querySelector('#buttonDecimal');
-  buttonDecimal.disabled = false;
+  toggleButton(buttonDecimal, false);
   displayExpression.textContent = 0;
   displayResult.textContent = 0;
   previousTerm = 0;
@@ -136,7 +136,7 @@ grid.addEventListener('click', (e) => {
     arrButtonOperators.map((button) => toggleButton(button, true));
     operatorValue = e.target.value;
     const buttonDecimal = document.querySelector('#buttonDecimal');
-    buttonDecimal.disabled = false;
+    toggleButton(buttonDecimal, false);
   }
   if (e.target.classList.contains('btn--number')) {
     calculateCurrentExpression();
@@ -152,7 +152,7 @@ buttonResult.addEventListener('click', () => {
 
 const buttonDecimal = grid.querySelector('#buttonDecimal');
 buttonDecimal.addEventListener('click', (e) => {
-  e.target.disabled = true;
+  toggleButton(e.target, true);
 });
 
 const buttonBackspace = grid.querySelector('#buttonBackspace');
