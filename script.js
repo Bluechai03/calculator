@@ -125,6 +125,7 @@ function updateDisplay(e) {
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   updateDisplay(e);
+  if (!e.target.classList.contains('btn')) return;
   const buttonOperators = document.querySelectorAll('.btn--operator');
   const arrButtonOperators = [...buttonOperators];
   arrButtonOperators.map((button) => toggleButton(button, false));
