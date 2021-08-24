@@ -147,6 +147,7 @@ main {
   box-shadow: inset 0 0 10px var(--clr-display-shadow);
   border-radius: 0.45em;
   margin-bottom: 1em;
+  overflow-x: hidden;
 }
 
 .grid {
