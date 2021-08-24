@@ -30,7 +30,7 @@ function multiply(firstNum, secondNum) {
 }
 
 function divide(firstNum, secondNum) {
-  if (parseInt(firstNum, 10) === 0 || parseInt(secondNum, 10) === 0) {
+  if (parseFloat(firstNum, 10) === 0 || parseFloat(secondNum, 10) === 0) {
     alert("Don't divide by 0!");
     resetCalculator();
     return 0;
@@ -147,7 +147,7 @@ grid.addEventListener('click', (e) => {
 const buttonResult = grid.querySelector('#buttonResult');
 buttonResult.addEventListener('click', () => {
   displayExpression.textContent = displayResult.textContent;
-  currentTerm = parseInt(displayResult.textContent, 10);
+  currentTerm = parseFloat(displayResult.textContent, 10);
 });
 
 const buttonDecimal = grid.querySelector('#buttonDecimal');
@@ -195,7 +195,7 @@ document.addEventListener('keydown', (e) => {
   } else if (e.key === 'Backspace') deleteValue();
   else if (e.key === 'Enter') {
     displayExpression.textContent = displayResult.textContent;
-    currentTerm = parseInt(displayResult.textContent, 10);
+    currentTerm = parseFloat(displayResult.textContent, 10);
   }
 });
 
