@@ -59,9 +59,9 @@
 
 ![Calculator Screenshot](https://i.imgur.com/A2XdScH.png)
 
-You can string multiple operations together. Also, keyboard inputs are supported! All logic was created using Vanilla JavaScript and SCSS as the preprocessor for CSS.
+This project is a web page of a basic calculator that takes values to add, subtract, multiple or divide them. You can string multiple operations together. Also, keyboard inputs are supported! This project was made using HTML, SCSS as the preprocessor for CSS and all logic was programmed in plain, vanilla JavaScript.
 
-For this project I focused on the logic and made sure everything functioned well without any hindering bugs. Compared to my other projects, I didn't spend much of my time making it look perfect. There were tons of bugs I had to fix and I tried my best to solve it myself and not search for an answer right away so I did have to spend most of my time using chrome's debugger tool to debug and it was incredibly helpful.
+For this project I focused on the logic and made sure everything functioned well without any hindering bugs. Compared to my other projects, I didn't spend much of my time making it look perfect. There were tons of bugs I had to fix and I tried my best to solve it myself and not search for an answer right away. I had to spend a lot of time debugging and using chrome's debugger tool to debug was incredibly helpful in figuring out what problems were occuring in this project.
 
 ### Features
 
