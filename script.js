@@ -38,9 +38,9 @@ function multiply(firstNum, secondNum) {
 }
 
 function divide(firstNum, secondNum) {
-  if (parseFloat(firstNum) === 0 || parseFloat(secondNum) === 0) errorMessage.classList.remove('calculator__top--hidden');
-  else errorMessage.classList.add('calculator__top--hidden');
-
+  if (parseFloat(firstNum) === 0 || parseFloat(secondNum) === 0) {
+    errorMessage.classList.remove('calculator__top--hidden');
+  } else errorMessage.classList.add('calculator__top--hidden');
   return firstNum / secondNum;
 }
 
@@ -88,7 +88,10 @@ function calculateCurrentExpression() {
   if (checkOperator()) {
     previousTerm = getValues(expression, expression.length - 2);
     currentTerm = getValues(expression, expression.length - 1);
-    if (previousTerm || currentTerm) displayResult.textContent = operate(previousTerm, operatorValue, currentTerm);
+    const result = operate(previousTerm, operatorValue, currentTerm);
+    if (result) {
+      if (previousTerm || currentTerm) displayResult.textContent = result;
+    } else displayResult.textContent = 0;
   }
   toggleResultButton();
 }
@@ -116,7 +119,9 @@ function displayValue(value) {
 }
 
 function displayOperator(operator) {
-  if (displayResult.textContent !== '0') {
+  if (displayResult.textContent === 'Infinity') {
+    resetCalculator();
+  } else if (displayResult.textContent !== '0') {
     if (checkOperator()) displayExpression.textContent = displayResult.textContent;
     else displayExpression.textContent = currentTerm;
   }
