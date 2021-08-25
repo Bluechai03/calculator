@@ -130,11 +130,11 @@ function displayOperator(operator) {
 }
 
 function updateDisplay(e) {
-  if (e.target.classList.contains('btn--number') || e.target.id === 'buttonDecimal') displayValue(e.target.value);
+  if (e.target.classList.contains('btn--value')) displayValue(e.target.value);
   else if (e.target.classList.contains('btn--operator')) displayOperator(e.target.textContent);
 }
 
-// DOM elements
+// DOM elements inside grid
 const grid = document.querySelector('.grid');
 grid.addEventListener('click', (e) => {
   updateDisplay(e);
@@ -151,28 +151,18 @@ grid.addEventListener('click', (e) => {
     const buttonDecimal = document.querySelector('#buttonDecimal');
     toggleButton(buttonDecimal, false);
   }
-  if (e.target.classList.contains('btn--number')) {
+  if (e.target.classList.contains('btn--value')) {
     calculateCurrentExpression();
   }
+  if (e.target.id === 'buttonResult') {
+    displayExpression.textContent = displayResult.textContent;
+    currentTerm = parseFloat(displayResult.textContent, 10);
+  }
+  if (e.target.id === 'buttonDecimal') toggleButton(e.target, true);
+  if (e.target.id === 'buttonBackspace') deleteValue();
 });
 
-// Get the first and second number then pass onto operate function
-const buttonResult = grid.querySelector('#buttonResult');
-buttonResult.addEventListener('click', () => {
-  displayExpression.textContent = displayResult.textContent;
-  currentTerm = parseFloat(displayResult.textContent, 10);
-});
-
-const buttonDecimal = grid.querySelector('#buttonDecimal');
-buttonDecimal.addEventListener('click', (e) => {
-  toggleButton(e.target, true);
-});
-
-const buttonBackspace = grid.querySelector('#buttonBackspace');
-buttonBackspace.addEventListener('click', () => {
-  deleteValue();
-});
-
+// Keyboard support
 document.addEventListener('keydown', (e) => {
   if (e.key.match(/^\d+$/)) {
     displayValue(e.key);
