@@ -81,7 +81,7 @@ For this project I focused on the logic and made sure everything functioned well
 
 Anna Montero - [Bluechai03](https://github.com/Bluechai03) - montero.katreena@gmail.com
 
-Project Link: [https://github.com/Bluechai03/etch-a-sketch](https://github.com/Bluechai03/etch-a-sketch)
+Project Link: [https://github.com/Bluechai03/calculator](https://github.com/Bluechai03/calculator)
 
 <!-- ACKNOWLEDGEMENTS -->
 

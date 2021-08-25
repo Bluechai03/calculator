@@ -38,7 +38,8 @@ function multiply(firstNum, secondNum) {
 }
 
 function divide(firstNum, secondNum) {
-  if (parseFloat(firstNum) === 0 || parseFloat(secondNum) === 0) {
+  if (!parseFloat(firstNum) || !parseFloat(secondNum)) {
+    if (!parseFloat(firstNum)) resetCalculator();
     errorMessage.classList.remove('calculator__top--hidden');
   } else errorMessage.classList.add('calculator__top--hidden');
   return firstNum / secondNum;
